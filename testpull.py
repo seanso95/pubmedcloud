@@ -1,10 +1,16 @@
 from metapub import PubMedFetcher
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import json
 # import spacy
 # import os
 
 search_terms = input("Input search term:")
+=======
+import spacy
+
+search_terms = input("Input search terms:")
+>>>>>>> Stashed changes
 =======
 import spacy
 
@@ -17,8 +23,11 @@ abstracts = {}
 for pmid in pmids:
     abstracts[pmid] = fetch.article_by_pmid(pmid).abstract
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 with open(search_terms.replace(" ", "_") + ".log", "w") as f:
     f.write(json.dumps(abstracts))
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
