@@ -1,7 +1,6 @@
 from metapub import PubMedFetcher  # NB: requires my fork of metapub to remove HTMl parsing errors
 from collections import Counter
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 import spacy
 import json
 import os
@@ -30,12 +29,12 @@ else:
     for pmid in pmids:
         try:
             tokens = sp(fetch.article_by_pmid(pmid).abstract.lower())
-            token_list = [token.lemma_ for token in tokens\
-                            if not token.is_stop | token.is_space | token.is_punct | token.is_digit\
-                            and token.lemma_ not in disallowed_terms\
+            token_list = [token.lemma_ for token in tokens
+                            if not token.is_stop | token.is_space | token.is_punct | token.is_digit
+                            and token.lemma_ not in disallowed_terms
                             and token.pos_ not in disallowed_tags]
             abstr[pmid] = list(set(token_list))
-        except (AttributeError, TypeError) as error:
+        except (AttributeError, TypeError):
             abstr[pmid] = None
         
     with open(file_name + ".log", "w") as f:
@@ -52,6 +51,3 @@ for l in list(abstr.values()):
 counts = Counter(words)  # count freq of lemma
 wc = WordCloud(scale=2, background_color="white").generate_from_frequencies(dict(counts))  # I think WordCloud has a counter func inside...
 wc.to_file(f"{file_name}.png")
-# plt.imshow(wc, interpolation="bilinear")
-# plt.axis("off")
-# plt.savefig(f"{file_name}.png")
